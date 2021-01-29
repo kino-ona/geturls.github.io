@@ -1,11 +1,19 @@
 // scroll animate
 var isVisible = false;
+var lastScrollTop = 0;
 $(window).on('scroll',function() {
 	var st = $(this).scrollTop();
+
 	if(st > 0) {
 		$('.titlechart').addClass('fixed')
 	}else{
 		$('.titlechart').removeClass('fixed')
+
+		if($('.sec_zoom').hasClass('_show')) {
+			if(st < lastScrollTop){ // upscroll code
+				$('.sec_zoom').removeClass('_show');
+			}
+		}
 	}
 
 	$('.pral_wrap .section').each(function(){
@@ -13,6 +21,7 @@ $(window).on('scroll',function() {
 
 			if($(this).hasClass('sec_intro')) {
 				$('.titlechart').find('li').removeClass('active')
+				$('.sec_zoom').removeClass('_show');
 			}
 
 			if($(this).hasClass('sec_skill')) {
@@ -31,14 +40,11 @@ $(window).on('scroll',function() {
 			if($(this).hasClass('sec_zoom')) {
 				var video = $(this).find('video').get(0);
 				if(video !== undefined) {
-					// video.currentTime = 0;
-					video.play();
+					if(!$('.sec_zoom').hasClass('_show')) {
+						video.play();
+					}
 				}
 				$('.sec_effect').find('video').removeClass('showed')
-			}
-
-			if($(this).hasClass('sec_zoom2')) {
-				$('.sec_zoom').find('video').get(0).pause();
 			}
 				
 			if($(this).hasClass('sec_effect')) {
@@ -96,14 +102,16 @@ $(window).on('scroll',function() {
 						if($(this).hasClass('swiper-slide-active')){
 							if(video !== undefined) {
 								video.play();
-								$(this).find('video').on(
-									"timeupdate",
-									function(e){
-										if(video.currentTime == video.duration) {
-											if(i == 0) howtoswipe.slideTo(1, 600);
-											return false;
-										}
-								});
+								howtoswipe.autoplay.start();
+								// $(this).find('video').on(
+								// 	"timeupdate",
+								// 	function(e){
+								// 		if(video.currentTime == video.duration) {
+								// 			// if(i == 0) howtoswipe.slideTo(1, 600);
+								// 			howtoswipe.autoplay.start();
+								// 			// return false;
+								// 		}
+								// });
 							}
 						}
 					}
@@ -224,37 +232,56 @@ var scrCtrl = new ScrollMagic.Controller;
 $('.section').each(function(i,e) {
 	var r = i + 1;
 	$(this).attr('data-slide', 'ani0' + r);
-	
-	new ScrollMagic.Scene({
-		triggerElement: this,
-		triggerHook: 'onEnter',
-		offset:'250',
-	})
-	.addTo(scrCtrl)
-	.setClassToggle("[data-slide=ani0"+ r +"]", "is-active").addTo(scrCtrl)
-	.on('enter', function () {
-	});
-	// new ScrollMagic.Scene({
-	// 	triggerElement: this,
-	// 	triggerHook: 'onLeave',
-	// 	offset:'-100'
-	// })
-	// .addTo(scrCtrl)
-	// .on('leave', function () {
-	// });
 
-	// if($(this).hasClass('sec_zoom')){
-		// var effectpin = new ScrollMagic.Scene({
-		// 	triggerElement: '.sec_zoom',
-		// 	triggerHook: 0.0,
-		// 	duration: "100%",
-		// 	// reverse: true
-		// })
-		// .setPin('.sec_zoom')
-		// .addTo(scrCtrl);
-	// }
-	// sec_zoom
-	if($(this).hasClass('sec_skill')) {
+	if(!$(this).hasClass('sec_zoom')) {
+		new ScrollMagic.Scene({
+			triggerElement: this,
+			triggerHook: 'onEnter',
+			duration: '120%',
+			offset:'210',
+		})
+		.addTo(scrCtrl)
+		.setClassToggle("[data-slide=ani0"+ r +"]", "is-active").addTo(scrCtrl)
+		.on('enter', function () {
+		});
+	}
+
+	if($(this).hasClass('sec_zoom')){ // sec_zoom
+		var cover = $('.sec_zoom').find('.cover');
+
+		TweenMax.set(cover, {opacity:0});
+		var cover_set = new TimelineMax()
+				.to(cover, 0.5, {opacity: 1, ease: Cubic.easeInOut, delay: 0.1})
+		
+		var zoompin = new ScrollMagic.Scene({
+			triggerElement: '.sec_zoom',
+			triggerHook: 0.0,
+			duration: "1250",
+			// offset: 0
+			reverse: true
+		})
+		.setPin('.sec_zoom')
+		.setTween(cover_set)
+		.addTo(scrCtrl)
+		.on('enter', function () {
+			if(i == 1) {
+				var video = $('.sec_zoom').find('video').get(0);
+				$('.sec_zoom').find('video').on(
+					"timeupdate",
+					function(e){
+						if(video.currentTime > 2 && video.currentTime < 3) {
+							video.pause();
+							$('.sec_zoom').addClass('_show');
+	
+							return false;
+						}
+				});
+			}
+		});
+		zoompin.offset('0');
+	}
+
+	if($(this).hasClass('sec_skill')) { 	// sec_skill
 		$('.sec_skill .swiper-slide').each(function () {
 			if($(this).hasClass('swiper-slide-active')){
 				var video = $(this).find('video').get(0);
@@ -263,19 +290,8 @@ $('.section').each(function(i,e) {
 				}
 			}
 		});
+		$('.sec_zoom').removeClass('_show');
 	}
-	// sec_skill
-	// if($(this).hasClass('sec_effect2')){
-	// 	var effectpin = new ScrollMagic.Scene({
-	// 		triggerElement: '.sec_effect2',
-	// 		triggerHook: 0.0,
-	// 		duration: "150%",
-	// 		reverse: true
-	// 	})
-	// 	.setPin('.sec_effect2')
-	// 	.addTo(scrCtrl);
-	// }
-	// sec_effect
 });
 
 // swipe fn
@@ -292,7 +308,7 @@ if($('#kvswipe').length > 0){
 }
 if($('#skillswipe').length > 0){ 
 	var vh = $('#skillswipe .swiper-slide').find('.video').innerHeight();
-	$('#skillswipe').find('.swp_paging').css('top', vh + 150);
+	$('#skillswipe').find('.swp_paging').css('top', vh + 210);
 
 	var skillswipe = new Swiper('#skillswipe', {
 		slidesPerView: 1,
@@ -326,7 +342,7 @@ if($('#skillswipe').length > 0){
 
 	$(window).resize(function (){
 		var vh = $('#skillswipe .swiper-slide').find('.video').innerHeight();
-		$('#skillswipe').find('.swp_paging').css('top', vh + 150);
+		$('#skillswipe').find('.swp_paging').css('top', vh + 210);
 	});
 }
 if($('#howtoswipe').length > 0){ 
@@ -341,57 +357,141 @@ if($('#howtoswipe').length > 0){
 			el: '.swiper-pagination',
 			clickable : true,
 		},
+		autoplay: {
+			delay: 5000,
+		},
 		on: {
 			slideChange: function () {
-				$('#howtoswipe .swiper-slide').each(function () {
-					var video = $(this).find('video').get(0);
+				$('#howtoswipe .swiper-slide').each(function (i) {
 					if($(this).hasClass('swiper-slide-active')) {
+						var video = $(this).find('video').get(0);
 						if(video !== undefined) {
 							video.pause();
 						}
+
+						
+						if(howtoswipe.activeIndex == 5) {
+							$('.sec_howto').find('.dim').hide()
+							var a0 = setTimeout(function(){
+								$('.howtoswipe._swipe').addClass('active');
+								$('#howtoswipe').removeClass('_auto');
+								$('#howtoswipe').remove()
+
+								clearTimeout(a0);
+							},5000);
+						}
 					}else{
+						var video = $(this).find('video').get(0);
 						if(video !== undefined) {
 							video.play();
 						}
 					}
 				});
-				$('#howtoswipe .swiper-slide').each(function () {
-					if(howtoswipe.activeIndex == $('#howtoswipe .swiper-slide').length - 1) {
-						var video = $(this).find('video').get(0);
-						$(this).find('video').on(
-						"timeupdate",
-						function(e){
-							if(video.currentTime == video.duration) {
-								if(howtoswipe.activeIndex == 3) {
-									$('.sec_howto').find('.dim').hide()
-									var a0 = setTimeout(function(){
-										$('.howtoswipe._swipe').addClass('active')
-										$('#howtoswipe').hide()
-
-										clearTimeout(a0);
-									}, 1200);
-								}
-							}
-						});
-						return;
-					}else{
-						var video = $(this).find('video').get(0);
-						$(this).find('video').on(
-							"timeupdate",
-							function(e){
-								if(video.currentTime == video.duration) {
-									howtoswipe.slideTo(howtoswipe.activeIndex + 1, 600);
-									if(howtoswipe.activeIndex == 3) {
-										$('#howtoswipe').removeClass('_auto');
-										return false;
-									}
-								}
-						});
-
-					}
-				});
-			},
+			}
 		}
+		// 	// slideChange: function () {
+		// 	// 	$('#howtoswipe .swiper-slide').each(function (i) {
+		// 	// 		var video = $(this).find('video').get(0);
+		// 	// 		if($(this).hasClass('swiper-slide-active')) {
+		// 	// 			// console.log(i)
+		// 	// 			// console.log($(this).activeIndex)
+		// 	// 			if(video !== undefined) {
+		// 	// 				video.pause();
+		// 	// 			}
+		// 	// 			// video.play();
+		// 	// 		}else{
+		// 	// 			// video.pause();
+		// 	// 			if(video !== undefined) {
+		// 	// 				video.play();
+		// 	// 			}
+		// 	// 			// $(this).find('video').on(
+		// 	// 			// 	"timeupdate",
+		// 	// 			// 	function(e){
+		// 	// 			// 		console.log($(this).find('video')[0])
+		// 	// 			// 		var at0 = setTimeout(function(){
+		// 	// 			// 			if(video.currentTime === video.duration) {
+		// 	// 			// 				howtoswipe.slideTo(howtoswipe.activeIndex + 1, 2000);
+		// 	// 			// 				if(howtoswipe.activeIndex == 5) {
+		// 	// 			// 					// console.log(howtoswipe.activeIndex)
+		// 	// 			// 					$('.sec_howto').find('.dim').hide()
+		// 	// 			// 					var a0 = setTimeout(function(){
+	
+		// 	// 			// 						$('.howtoswipe._swipe').addClass('active');
+		// 	// 			// 						$('#howtoswipe').removeClass('_auto');
+		// 	// 			// 						$('#howtoswipe').remove()
+		// 	// 			// 						video.pause();
+	
+		// 	// 			// 						clearTimeout(a0);
+		// 	// 			// 					}, 2000);
+		// 	// 			// 				}
+		// 	// 			// 			}
+
+		// 	// 			// 			clearTimeout(at0);
+		// 	// 			// 		}, 2000);
+		// 	// 			// });
+		// 	// 		}
+		// 	// 	});
+		// 	// 	$('#howtoswipe .swiper-slide').each(function () {
+		// 	// 		if(howtoswipe.activeIndex == $('#howtoswipe .swiper-slide').length - 1) {
+		// 	// 			var video = $(this).find('video').get(0);
+		// 	// 			$(this).find('video').on(
+		// 	// 				"timeupdate",
+		// 	// 				function(e){
+		// 	// 					if(video.currentTime == video.duration) {
+		// 	// 						if(howtoswipe.activeIndex == 5) {
+		// 	// 							$('.sec_howto').find('.dim').hide()
+		// 	// 							var a0 = setTimeout(function(){
+
+		// 	// 								$('.howtoswipe._swipe').addClass('active');
+		// 	// 								$('#howtoswipe').removeClass('_auto');
+		// 	// 								$('#howtoswipe').remove()
+		// 	// 								video.pause();
+
+		// 	// 								clearTimeout(a0);
+		// 	// 							}, video.duration);
+		// 	// 						}
+		// 	// 					}
+		// 	// 				}
+		// 	// 			);
+		// 	// 			// return false;
+		// 	// 		}else{
+		// 	// 			var video = $(this).find('video').get(0);
+		// 	// 			$(this).find('video').on(
+		// 	// 				"timeupdate",
+		// 	// 				function(e){
+		// 	// 						if(howtoswipe.activeIndex == 5) {
+		// 	// 							video.pause();
+		// 	// 							$('#howtoswipe').removeClass('_auto');
+
+		// 	// 							return false;
+		// 	// 						}else {
+		// 	// 							// if((howtoswipe.activeIndex + 1) == 1) {
+		// 	// 							// 	console.log(howtoswipe.activeIndex + 1)
+		// 	// 							// 	if(video.currentTime == video.duration) {
+		// 	// 							// 		howtoswipe.slideTo(2, 600);
+		// 	// 							// 	}
+		// 	// 							// }
+
+		// 	// 							// if(video.paused) {
+		// 	// 							// 	console.log(howtoswipe.activeIndex+1)
+		// 	// 							// 	howtoswipe.slideTo(howtoswipe.activeIndex + 1, 600);
+		// 	// 							// }else{
+
+		// 	// 							// }
+		// 	// 							if(video.currentTime == video.duration) {
+		// 	// 								var a1 = setTimeout(function(){
+		// 	// 									howtoswipe.slideTo(howtoswipe.activeIndex + 1, 800);
+
+		// 	// 									clearTimeout(a1);
+		// 	// 								}, video.duration);
+		// 	// 						}
+		// 	// 					}
+		// 	// 				}
+		// 	// 			);
+		// 	// 		}
+		// 	// 	});
+		// 	// },
+		// }
 	});
 
 	var vh = $('#howtoswipe2 .swiper-slide').find('.video').innerHeight();
