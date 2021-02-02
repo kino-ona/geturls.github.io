@@ -308,7 +308,7 @@ if($('#kvswipe').length > 0){
 }
 if($('#skillswipe').length > 0){ 
 	var vh = $('#skillswipe .swiper-slide').find('.video').innerHeight();
-	$('#skillswipe').find('.swp_paging').css('top', vh + 210);
+	$('#skillswipe').find('.swp_paging').css('top', vh + 150);
 
 	var skillswipe = new Swiper('#skillswipe', {
 		slidesPerView: 1,
@@ -342,7 +342,7 @@ if($('#skillswipe').length > 0){
 
 	$(window).resize(function (){
 		var vh = $('#skillswipe .swiper-slide').find('.video').innerHeight();
-		$('#skillswipe').find('.swp_paging').css('top', vh + 210);
+		$('#skillswipe').find('.swp_paging').css('top', vh + 150);
 	});
 }
 if($('#howtoswipe').length > 0){ 
