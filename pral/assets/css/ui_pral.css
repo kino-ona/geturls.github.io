@@ -384,7 +384,7 @@ video { -webkit-mask-image: -webkit-radial-gradient(white, black); -webkit-backf
 
 .sec_zoom2 .cover.back { opacity: 1; background-color: white; }
 
-.sec_skill { position: relative; background-color: #fff; z-index: 1; margin-top: -60px; }
+.sec_skill { position: relative; background-color: #fff; z-index: 1; margin-top: -100px; }
 
 .sec_skill .title { position: relative; min-height: 120px; margin-bottom: 30px; }
 
