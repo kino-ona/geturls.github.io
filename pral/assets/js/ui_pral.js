@@ -368,9 +368,8 @@ if($('#howtoswipe').length > 0){
 						if(video !== undefined) {
 							video.pause();
 						}
-
 						
-						if(howtoswipe.activeIndex == 5) {
+						if(howtoswipe.activeIndex == 2) {
 							$('.sec_howto').find('.dim').hide()
 							var a0 = setTimeout(function(){
 								$('.howtoswipe._swipe').addClass('active');
@@ -389,109 +388,7 @@ if($('#howtoswipe').length > 0){
 				});
 			}
 		}
-		// 	// slideChange: function () {
-		// 	// 	$('#howtoswipe .swiper-slide').each(function (i) {
-		// 	// 		var video = $(this).find('video').get(0);
-		// 	// 		if($(this).hasClass('swiper-slide-active')) {
-		// 	// 			// console.log(i)
-		// 	// 			// console.log($(this).activeIndex)
-		// 	// 			if(video !== undefined) {
-		// 	// 				video.pause();
-		// 	// 			}
-		// 	// 			// video.play();
-		// 	// 		}else{
-		// 	// 			// video.pause();
-		// 	// 			if(video !== undefined) {
-		// 	// 				video.play();
-		// 	// 			}
-		// 	// 			// $(this).find('video').on(
-		// 	// 			// 	"timeupdate",
-		// 	// 			// 	function(e){
-		// 	// 			// 		console.log($(this).find('video')[0])
-		// 	// 			// 		var at0 = setTimeout(function(){
-		// 	// 			// 			if(video.currentTime === video.duration) {
-		// 	// 			// 				howtoswipe.slideTo(howtoswipe.activeIndex + 1, 2000);
-		// 	// 			// 				if(howtoswipe.activeIndex == 5) {
-		// 	// 			// 					// console.log(howtoswipe.activeIndex)
-		// 	// 			// 					$('.sec_howto').find('.dim').hide()
-		// 	// 			// 					var a0 = setTimeout(function(){
-	
-		// 	// 			// 						$('.howtoswipe._swipe').addClass('active');
-		// 	// 			// 						$('#howtoswipe').removeClass('_auto');
-		// 	// 			// 						$('#howtoswipe').remove()
-		// 	// 			// 						video.pause();
-	
-		// 	// 			// 						clearTimeout(a0);
-		// 	// 			// 					}, 2000);
-		// 	// 			// 				}
-		// 	// 			// 			}
-
-		// 	// 			// 			clearTimeout(at0);
-		// 	// 			// 		}, 2000);
-		// 	// 			// });
-		// 	// 		}
-		// 	// 	});
-		// 	// 	$('#howtoswipe .swiper-slide').each(function () {
-		// 	// 		if(howtoswipe.activeIndex == $('#howtoswipe .swiper-slide').length - 1) {
-		// 	// 			var video = $(this).find('video').get(0);
-		// 	// 			$(this).find('video').on(
-		// 	// 				"timeupdate",
-		// 	// 				function(e){
-		// 	// 					if(video.currentTime == video.duration) {
-		// 	// 						if(howtoswipe.activeIndex == 5) {
-		// 	// 							$('.sec_howto').find('.dim').hide()
-		// 	// 							var a0 = setTimeout(function(){
-
-		// 	// 								$('.howtoswipe._swipe').addClass('active');
-		// 	// 								$('#howtoswipe').removeClass('_auto');
-		// 	// 								$('#howtoswipe').remove()
-		// 	// 								video.pause();
-
-		// 	// 								clearTimeout(a0);
-		// 	// 							}, video.duration);
-		// 	// 						}
-		// 	// 					}
-		// 	// 				}
-		// 	// 			);
-		// 	// 			// return false;
-		// 	// 		}else{
-		// 	// 			var video = $(this).find('video').get(0);
-		// 	// 			$(this).find('video').on(
-		// 	// 				"timeupdate",
-		// 	// 				function(e){
-		// 	// 						if(howtoswipe.activeIndex == 5) {
-		// 	// 							video.pause();
-		// 	// 							$('#howtoswipe').removeClass('_auto');
-
-		// 	// 							return false;
-		// 	// 						}else {
-		// 	// 							// if((howtoswipe.activeIndex + 1) == 1) {
-		// 	// 							// 	console.log(howtoswipe.activeIndex + 1)
-		// 	// 							// 	if(video.currentTime == video.duration) {
-		// 	// 							// 		howtoswipe.slideTo(2, 600);
-		// 	// 							// 	}
-		// 	// 							// }
-
-		// 	// 							// if(video.paused) {
-		// 	// 							// 	console.log(howtoswipe.activeIndex+1)
-		// 	// 							// 	howtoswipe.slideTo(howtoswipe.activeIndex + 1, 600);
-		// 	// 							// }else{
-
-		// 	// 							// }
-		// 	// 							if(video.currentTime == video.duration) {
-		// 	// 								var a1 = setTimeout(function(){
-		// 	// 									howtoswipe.slideTo(howtoswipe.activeIndex + 1, 800);
-
-		// 	// 									clearTimeout(a1);
-		// 	// 								}, video.duration);
-		// 	// 						}
-		// 	// 					}
-		// 	// 				}
-		// 	// 			);
-		// 	// 		}
-		// 	// 	});
-		// 	// },
-		// }
+		
 	});
 
 	var vh = $('#howtoswipe2 .swiper-slide').find('.video').innerHeight();
