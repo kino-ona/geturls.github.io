@@ -408,7 +408,7 @@ video { -webkit-mask-image: -webkit-radial-gradient(white, black); -webkit-backf
 
 .sec_skill .swiper-slide .desc { margin-top: 15px; padding: 0; letter-spacing: -.7px; }
 
-.sec_skill .swiper-slide .desc span { display: block; margin-bottom: 3px; line-height: 1.5; letter-spacing: -.7px; }
+.sec_skill .swiper-slide .desc span { display: block; margin-bottom: 3px; line-height: 1.5; letter-spacing: -.7px; font-weight: 300; }
 
 .sec_skill .video { position: relative; width: 100%; margin: 0 auto; padding-top: 85%; background-color: transparent; }
 
@@ -512,7 +512,7 @@ video { -webkit-mask-image: -webkit-radial-gradient(white, black); -webkit-backf
 
 .sec_howto .swiper-slide .desc { margin-top: 15px; padding: 0; }
 
-.sec_howto .swiper-slide .desc span { display: block; line-height: 1.5; }
+.sec_howto .swiper-slide .desc span { display: block; line-height: 1.5; font-weight: 300; }
 
 .sec_howto .video { position: relative; width: calc(100% - 50px); margin: 0 auto; padding-top: calc(100vw - 150px); background-color: transparent; }
 
