@@ -318,11 +318,11 @@ video { -webkit-mask-image: -webkit-radial-gradient(white, black); -webkit-backf
 
 .section .summary dd { line-height: inherit; }
 
-.section .desc { padding: 1.875rem; font-size: 10px; font-weight: 300; color: #888888; background-color: #fff; }
+.section .desc { padding: 1.875rem; font-size: 10px; font-weight: 300; color: #666; background-color: #fff; }
 
-.section .desc p { position: relative; display: block; padding-left: 8px; line-height: 1.7; letter-spacing: -.1px; font-weight: 300; font-size: inherit; }
+.section .desc p { position: relative; display: block; padding-left: 8px; line-height: 1.7; letter-spacing: -.1px; font-weight: 300; font-size: inherit; color: inherit; }
 
-.section .desc p:before { content: '*'; position: absolute; left: 0; top: 1px; font-size: inherit; font-weight: 300; color: #888888; }
+.section .desc p:before { content: '*'; position: absolute; left: 0; top: 1px; font-size: inherit; font-weight: 300; color: inherit; }
 
 .section video { outline: none; border: 0; background-color: transparent; }
 
