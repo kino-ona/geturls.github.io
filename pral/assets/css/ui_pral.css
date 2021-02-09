@@ -330,6 +330,8 @@ video { -webkit-mask-image: -webkit-radial-gradient(white, black); -webkit-backf
 
 .sec_intro .title { margin-bottom: 40px; }
 
+.sec_intro .title span { display: inline; font-size: inherit; font-weight: inherit; color: #d74367; }
+
 .sec_intro .row { padding-top: 50px; }
 
 .sec_intro .summary { margin-left: 53%; color: #222; }
@@ -574,7 +576,7 @@ video { -webkit-mask-image: -webkit-radial-gradient(white, black); -webkit-backf
 
 .sec_stabillity .cut { position: relative; padding-top: 2.813rem; }
 
-.sec_stabillity .mark { opacity: 0; display: inline-block; position: absolute; top: 0; width: 91px; height: 92px; background-image: url(../images/stabi_cut01.png); background-size: cover; background-repeat: no-repeat; background-position: center center; z-index: 1; -webkit-transition: .3s ease-in-out; transition: .3s ease-in-out; }
+.sec_stabillity .mark { opacity: 0; display: inline-block; position: absolute; top: 0; width: 91px; height: 92px; background-image: url(../images/stabi_cut01.png); background-size: cover; background-repeat: no-repeat; background-position: center center; z-index: 1; -webkit-transition: .9s ease-in-out; transition: .9s ease-in-out; }
 
 .sec_stabillity .mark.markOn { visibility: visible; opacity: 1; }
 
@@ -584,9 +586,9 @@ video { -webkit-mask-image: -webkit-radial-gradient(white, black); -webkit-backf
 
 .sec_stabillity .desc .ckbx { margin-bottom: 12px; }
 
-.sec_stabillity .desc .chk { position: relative; margin-bottom: 3px; padding-left: 22px; font-weight: 500; font-size: 0.9375rem; color: #222; }
+.sec_stabillity .desc .chk { position: relative; margin-bottom: 3px; padding-left: 22px; font-weight: 500; font-size: 0.9375rem; color: #222; line-height: 1.5; }
 
-.sec_stabillity .desc .chk i { display: inline-block; position: absolute; left: 0; top: 0; width: 15px; height: 15px; background-image: url(../images/ico_chk.png); background-size: cover; background-repeat: no-repeat; background-position: center center; }
+.sec_stabillity .desc .chk i { display: inline-block; position: absolute; left: 0; top: 2px; width: 15px; height: 15px; background-image: url(../images/ico_chk.png); background-size: cover; background-repeat: no-repeat; background-position: center center; }
 
 .sec_component { position: relative; z-index: 1; padding-top: 40px; background-color: #fff; }
 
