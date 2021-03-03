@@ -270,7 +270,6 @@ $(window).on('scroll',function() {
 						}, 1000);
 					}else{
 						var a0 = setTimeout(function(){	
-							// howtoswipe2.slideTo(0);
 							$('.sec_howto .swiper-slide').each(function () {
 								if($(this).hasClass('swiper-slide-active')){
 									var video = $(this).find('video').get(0);
@@ -327,13 +326,12 @@ var scrCtrl = new ScrollMagic.Controller;
 $('.section').each(function(i,e) {
 	var r = i + 1;
 	$(this).attr('data-slide', 'ani0' + r);
-
 	if(!$(this).hasClass('sec_zoom')) {
 		new ScrollMagic.Scene({
 			triggerElement: this,
 			triggerHook: 'onEnter',
 			duration: '120%',
-			offset:'210',
+			offset: 0,
 		})
 		.addTo(scrCtrl)
 		.setClassToggle("[data-slide=ani0"+ r +"]", "is-active").addTo(scrCtrl)
@@ -442,10 +440,10 @@ $(document).ready(function() {
 			paginationClickable: true,
 			autoplayDisableOnInteraction: true,
 			slidesPerView: 3,
-			spaceBetween: 5,
+			spaceBetween: 0,
 			autoplay: false,
 			breakpoints: {
-				1024: {
+				767: {
 					slidesPerView: 1,
 					spaceBetween: 0,
 					autoplay: 5000,
@@ -478,54 +476,12 @@ $(document).ready(function() {
 		}
 		howtoswipe = new Swiper('#howtoswipe', settings);
 	
-		var vh = $('#howtoswipe2 .swiper-slide').find('.video').innerHeight();
-		$('#howtoswipe2').find('.swp_paging').css('top', vh - 5);
-		var howtoswipe2 = new Swiper('#howtoswipe2', {
-			allowTouchMove: true,
-			pagination: '#howtoswipe2 .swiper-pagination',
-			paginationClickable: true,
-			autoplayDisableOnInteraction: true,
-			slidesPerView: 3,
-			spaceBetween: 5,
-			autoplay: false,
-			breakpoints: {
-				1024: {
-					slidesPerView: 1,
-					spaceBetween: 0,
-					autoplay: 5000,
-				},
-			},
-			on: {
-				slideChange: function () {
-					$('#howtoswipe2 .swiper-slide').each(function () {
-						var video = $(this).find('video').get(0);
-						if($(this).hasClass('swiper-slide-active')) {
-							if(video !== undefined) {
-								video.play();
-							}
-						}else{
-							if(video !== undefined) {
-								video.pause();
-							}
-						}
-					});
-				},
-			}
-		});
-	
 		$(window).resize(function (){
 			var vh = $('#howtoswipe .swiper-slide').find('.video').innerHeight();
 			$('#howtoswipe').find('.swp_paging').css('top', vh - 5);
-	
-			if($(window) < 1024) {
-				var vh = $('#howtoswipe2 .swiper-slide').find('.video').innerHeight();
-				$('#howtoswipe2').find('.swp_paging').css('top', vh - 5);
-			}
 		});
 	}
 });
-
-
 // layer popup control
 var isOpen = false;
 function prallayerOpen(layerId){
